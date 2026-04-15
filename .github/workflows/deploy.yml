@@ -1,74 +1,18 @@
-name: Deploy Next.js to EC2
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
 
-on:
-  push:
-    branches:
-      - main  # triggers on push to main
+COPY package*.json ./
+RUN npm ci
 
-env:
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-  IMAGE_TAG: ${{ github.sha }}
+COPY . .
+RUN npm run build
 
-jobs:
-  deploy:
-    name: Build, Push & Deploy
-    runs-on: ubuntu-latest
+# Stage 2: Serve with Nginx
+FROM nginx:alpine AS runner
 
-    steps:
-      # 1. Checkout code
-      - name: Checkout repository
-        uses: actions/checkout@v4
+# Copy built files to nginx
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-      # 2. Configure AWS credentials
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-      # 3. Login to Amazon ECR
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-
-      # 4. Build and push Docker image to ECR
-      - name: Build, tag, and push image to ECR
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      # 5. SSH into EC2 and deploy
-      - name: Deploy to EC2
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            # Login to ECR from EC2
-            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
-              docker login --username AWS --password-stdin \
-              ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-
-            # Pull the latest image
-            docker pull ${{ steps.build-image.outputs.image }}
-
-            # Stop and remove old container (ignore errors if not running)
-            docker stop nextjs-app || true
-            docker rm nextjs-app || true
-
-            # Run new container
-            docker run -d \
-              --name nextjs-app \
-              --restart always \
-              -p 3000:3000 \
-              ${{ steps.build-image.outputs.image }}
-
-            # Clean up old images
-            docker image prune -f
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
