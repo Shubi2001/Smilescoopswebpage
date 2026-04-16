@@ -49,7 +49,7 @@ export default function Ingredients() {
             className="relative z-10 rounded-3xl overflow-hidden shadow-2xl"
           >
             <img 
-              src="https://picsum.photos/seed/ingredients/800/800" 
+              src="https://images.unsplash.com/photo-1551024709-3f23ad6edff5?auto=format&fit=crop&w=800&h=800&q=80" 
               alt="Ingredients" 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"

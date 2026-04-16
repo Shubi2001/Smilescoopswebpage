@@ -72,7 +72,7 @@ export default function Legacy() {
           >
             <div className="aspect-video rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="https://picsum.photos/seed/legacy/1200/800" 
+                src="https://images.unsplash.com/photo-1516559828984-fb3b923ca2d4?auto=format&fit=crop&w=1200&h=800&q=80" 
                 alt="World's Top Ice Cream" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"

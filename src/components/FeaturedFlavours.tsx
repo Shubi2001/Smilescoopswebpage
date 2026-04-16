@@ -4,27 +4,51 @@ import { cn } from '@/src/lib/utils';
 const flavours = [
   {
     name: 'Guava Glory',
-    description: 'The perfect blend of sweet and tangy pink guava.',
+    description: 'The perfect blend of sweet and tangy pink guava with a pinch of salt and chilli.',
     color: 'bg-pink-500',
-    image: 'https://picsum.photos/seed/guava/400/400',
+    image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=400&h=400&q=80',
   },
   {
     name: 'Belgian Bite',
-    description: 'Rich, dark Belgian chocolate with crunchy bits.',
+    description: 'Rich, dark Belgian chocolate with crunchy bits for the ultimate cocoa experience.',
     color: 'bg-amber-900',
-    image: 'https://picsum.photos/seed/chocolate/400/400',
+    image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=400&h=400&q=80',
   },
   {
     name: 'Roasted Almond',
-    description: 'Slow-roasted almonds in creamy vanilla base.',
+    description: 'Slow-roasted Californian almonds in our signature creamy vanilla base.',
     color: 'bg-orange-600',
-    image: 'https://picsum.photos/seed/almond/400/400',
+    image: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=400&h=400&q=80',
   },
   {
     name: 'Pani Puri Patakha',
-    description: 'A daring twist on India’s favourite street snack.',
+    description: 'A daring, spicy and tangy twist on India’s most loved street snack.',
     color: 'bg-green-600',
-    image: 'https://picsum.photos/seed/panipuri/400/400',
+    image: 'https://images.unsplash.com/photo-1505394033323-4241b2213fd3?auto=format&fit=crop&w=400&h=400&q=80',
+  },
+  {
+    name: 'Mango Magic',
+    description: 'Made with real Ratnagiri Alphonso mangoes for a true summer delight.',
+    color: 'bg-yellow-500',
+    image: 'https://images.unsplash.com/photo-1560008511-11c63416e52d?auto=format&fit=crop&w=400&h=400&q=80',
+  },
+  {
+    name: 'Blueberry Bliss',
+    description: 'Wild blueberries swirled into a creamy cheesecake base.',
+    color: 'bg-indigo-600',
+    image: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=400&h=400&q=80',
+  },
+  {
+    name: 'Sitaphal Splendor',
+    description: 'Creamy custard apple pulp that melts in your mouth.',
+    color: 'bg-emerald-500',
+    image: 'https://images.unsplash.com/photo-1560008583-097743cc88ea?auto=format&fit=crop&w=400&h=400&q=80',
+  },
+  {
+    name: 'Tender Coconut',
+    description: 'Refreshing malai from fresh tender coconuts in every bite.',
+    color: 'bg-slate-400',
+    image: 'https://images.unsplash.com/photo-1584208124888-3a20b9c799e2?auto=format&fit=crop&w=400&h=400&q=80',
   },
 ];
 
@@ -37,7 +61,7 @@ export default function FeaturedFlavours() {
             <span className="text-brand-green">OGs</span> - Originals Crafted to Perfection
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto">
-            Our signature flavours that have stood the test of time. Each scoop is a masterpiece of taste and texture.
+            Our signature flavours that have stood the test of time. Each scoop is a masterpiece of taste and texture, made with 100% natural ingredients.
           </p>
         </div>
 
@@ -47,7 +71,7 @@ export default function FeaturedFlavours() {
               key={flavour.name}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: (index % 4) * 0.1 }}
               viewport={{ once: true }}
               className={cn(
                 "relative group overflow-hidden aspect-[3/4] flex flex-col items-center justify-center p-8 text-white text-center",

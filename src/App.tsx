@@ -13,6 +13,8 @@ import Stats from './components/Stats';
 import Testimonials from './components/Testimonials';
 import Instagram from './components/Instagram';
 import Footer from './components/Footer';
+import DeliveryTracker from './components/DeliveryTracker';
+import CheckoutModal from './components/CheckoutModal';
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
       <Testimonials />
       <Instagram />
       <Footer />
+      <DeliveryTracker />
+      <CheckoutModal />
     </main>
   );
 }

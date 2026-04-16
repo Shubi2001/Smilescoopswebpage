@@ -68,7 +68,7 @@ export default function Hero() {
         >
           <div className="relative z-10 w-full aspect-square max-w-lg mx-auto">
             <img 
-              src="https://picsum.photos/seed/milkshake/800/800" 
+              src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&h=800&q=80" 
               alt="Milkshake" 
               className="w-full h-full object-contain drop-shadow-2xl"
               referrerPolicy="no-referrer"
