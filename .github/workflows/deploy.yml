@@ -62,7 +62,7 @@ jobs:
             docker run -d \
               --name vite-app \
               --restart always \
-              -p 3000:3000 \
+              -p 3000:80 \
               ${{ steps.build-image.outputs.image }}
 
             # Clean up old images
