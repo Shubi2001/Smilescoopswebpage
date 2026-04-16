@@ -60,7 +60,7 @@ jobs:
 
             # Run new container on port 3000
             docker run -d \
-              --name vite-app \
+              --name smilescoopswebpage \
               --restart always \
               -p 3000:80 \
               ${{ steps.build-image.outputs.image }}
