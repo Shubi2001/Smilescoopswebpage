@@ -55,8 +55,8 @@ jobs:
             docker pull ${{ steps.build-image.outputs.image }}
 
             # Stop and remove old container
-            docker stop vite-app || true
-            docker rm vite-app || true
+            docker stop smilescoopswebpage || true
+            docker rm smilescoopswebpage || true
 
             # Run new container on port 3000
             docker run -d \
